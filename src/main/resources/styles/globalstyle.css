@@ -1,0 +1,20 @@
+BorderPane{
+-fx-background-color: #AAA;
+}
+
+.menu-button {
+    -fx-font: 15px "Serif";
+    -fx-pref-height: 50px;
+    -fx-pref-width: 250px;
+    -fx-background-color: #CCFF99;
+    -fx-wrap-text: true;
+}
+
+.container{
+    -fx-padding: 50px;
+}
+
+.menu-bar{
+    -fx-background-color: #333;
+    -fx-pref-width: 250px;
+}

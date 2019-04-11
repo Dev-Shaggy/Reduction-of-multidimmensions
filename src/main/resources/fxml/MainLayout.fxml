@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shaggydev.controllers.AppContoller">
+   <left>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="menu-bar" BorderPane.alignment="CENTER">
+         <children>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#open" styleClass="menu-button" text="%filechooser.window" />
+            <Button mnemonicParsing="false" onAction="#pca" styleClass="menu-button" text="%pca.button" />
+            <Button mnemonicParsing="false" onAction="#mds" styleClass="menu-button" text="%mds.button" />
+            <Button mnemonicParsing="false" onAction="#som" styleClass="menu-button" text="%som.button" />
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#clear" styleClass="menu-button" text="%clear.button" />
+         </children>
+      </VBox>
+   </left>
+</BorderPane>
