@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane styleClass="container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shaggydev.controllers.OpenController">
+   <children>
+      <HBox>
+         <children>
+            <VBox styleClass="optionpanel">
+               <children>
+                  <HBox spacing="20.0">
+                     <children>
+                        <Button fx:id="openFileButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openFile" text="%open_file.button" />
+                        <VBox alignment="CENTER">
+                           <children>
+                              <Label text="%file_path" GridPane.columnIndex="1" />
+                              <Label fx:id="path" text="Label" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox spacing="20.0">
+                     <children>
+                        <CheckBox fx:id="col_desc" mnemonicParsing="false" text="%description.checkbox" />
+                        <VBox alignment="CENTER">
+                           <children>
+                              <Label text="%description.label" />
+                              <TextField fx:id="col_id" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <CheckBox fx:id="title" mnemonicParsing="false" text="%title.checkbox">
+                     <VBox.margin>
+                        <Insets bottom="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <Button mnemonicParsing="false" onAction="#prepareData" text="%confirm" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+            <AnchorPane>
+               <children>
+                  <TableView fx:id="RAW_DATA" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</StackPane>

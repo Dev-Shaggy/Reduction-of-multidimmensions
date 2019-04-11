@@ -18,3 +18,6 @@ BorderPane{
     -fx-background-color: #333;
     -fx-pref-width: 250px;
 }
+.optionpanel{
+    -fx-background-color: #DDD;
+}

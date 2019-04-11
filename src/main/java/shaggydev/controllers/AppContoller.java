@@ -7,6 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import shaggydev.interfaces.iController;
+import shaggydev.models.RowString;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,11 +16,15 @@ import java.util.ResourceBundle;
 
 public class AppContoller implements Initializable {
 
-
+//  GUI
     @FXML
     public BorderPane borderPane;
 
+    private iController controller;
 
+
+
+//  Variables
     private ResourceBundle bundle;
 
 
@@ -29,20 +35,21 @@ public class AppContoller implements Initializable {
 
     @FXML
     public void open() {
-        loadUI("test");
+        loadUI("OpenLayout");
     }
 
     @FXML
     public void pca() {
+
         loadUI("PCALayout");
     }
     @FXML
     public void mds() {
-        loadUI("test");
+        loadUI("MDSLayout");
     }
     @FXML
     public void som() {
-        loadUI("test");
+        loadUI("SOMLayout");
     }
     @FXML
     public void clear() {
@@ -55,6 +62,7 @@ public class AppContoller implements Initializable {
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/fxml/"+ui+".fxml"));
             loader.setResources(bundle);
             root = loader.load();
+            controller = loader.getController();
         } catch (IOException e) {
             e.printStackTrace();
         }
