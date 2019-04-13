@@ -1,5 +1,6 @@
 BorderPane{
 -fx-background-color: #AAA;
+-fx-min-width: 1000px;
 }
 
 .menu-button {
@@ -20,4 +21,9 @@ BorderPane{
 }
 .optionpanel{
     -fx-background-color: #DDD;
+    -fx-min-width: 200px;
+}
+
+Button{
+    -fx-min-width: 100px;
 }

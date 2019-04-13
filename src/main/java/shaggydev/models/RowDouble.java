@@ -2,13 +2,13 @@ package shaggydev.models;
 
 import java.util.List;
 
-public class RowFloat {
+public class RowDouble {
 
-    private List<Float> _row;
+    private List<Double> _row;
 
-    public RowFloat(List<Float> row){this._row=row;}
+    public RowDouble(List<Double> row){this._row=row;}
 
-    public List<Float> get_row() {
+    public List<Double> get_row() {
         return _row;
     }
 }

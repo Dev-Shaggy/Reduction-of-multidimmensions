@@ -16,7 +16,7 @@ public class DataObject {
     }
 
     private List<RowString> _list;
-    private List<RowFloat> _rows;
+    private List<RowDouble> _rows;
     private boolean title;
     private boolean col_desc;
     private int col_desc_id;
@@ -34,26 +34,49 @@ public class DataObject {
         }catch (Exception e){
         }
     }
-    public void parseFloat(){
+    public void parseDouble(){
         _rows = new ArrayList<>();
 
         int cursor = title ? 1 : 0;
 
         if(col_desc){
             for (int i=cursor;i<_list.size();i++){
-                _rows.add(new RowFloat(_list.get(i).getRow(col_desc_id)));
+                _rows.add(new RowDouble(_list.get(i).getRow(col_desc_id)));
             }
         }else {
             for (int i=cursor;i<_list.size();i++){
-                _rows.add(new RowFloat(_list.get(i).getRow()));
+                _rows.add(new RowDouble(_list.get(i).getRow()));
             }
         }
     }
 
+    public String[][] getStringTab(){
+        String [][] table = new String[_list.size()][_list.get(0).getRow().size()];
+
+        for(int i=0;i< _list.size();i++){
+            for (int j=0;j<_list.get(0).getRow().size();j++){
+                table[i][j] = _list.get(i).getStringByID(j);
+            }
+        }
+        return table;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     public List<RowString> get_list() {
         return _list;
     }
-    public List<RowFloat> get_rows() {
+    public List<RowDouble> get_rows() {
         return _rows;
     }
 
@@ -77,6 +100,5 @@ public class DataObject {
     public void setCol_desc_id(int col_desc_id) {
         this.col_desc_id = col_desc_id;
     }
-
 
 }

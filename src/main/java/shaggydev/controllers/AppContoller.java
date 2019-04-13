@@ -23,7 +23,6 @@ public class AppContoller implements Initializable {
     private iController controller;
 
 
-
 //  Variables
     private ResourceBundle bundle;
 

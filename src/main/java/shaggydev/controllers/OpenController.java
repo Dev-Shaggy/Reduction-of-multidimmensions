@@ -1,19 +1,21 @@
 package shaggydev.controllers;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 import shaggydev.interfaces.iController;
-import shaggydev.models.RowString;
+import shaggydev.models.DataObject;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 
 public class OpenController implements iController, Initializable {
@@ -28,9 +30,12 @@ public class OpenController implements iController, Initializable {
 
     //Handler do głównego okna
     private AppContoller appContoller;
+
+
     private File file;
     private int column_description;
 
+    private DataObject dataObject;
 
     @Override
     public void setUpController(AppContoller app){
@@ -39,49 +44,76 @@ public class OpenController implements iController, Initializable {
     @FXML
     public void openFile() {
 
-        FileChooser fch = new FileChooser();
-        file = fch.showOpenDialog(openFileButton.getParent().getScene().getWindow());
+        try{
+            FileChooser fch = new FileChooser();
+            file = fch.showOpenDialog(openFileButton.getParent().getScene().getWindow());
+
+            path.setText(file.getName());
+            dataObject.SetData(file);
+
+            setRAW_DATA();
+        }catch (Exception e){
+            //TODO dodać logger
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        dataObject = DataObject.getInstance();
+
+        try{
+            setRAW_DATA();
+        }catch (Exception e){
+//TODO doać logger
+        }
+//TODO poprawić bindowanie lub inicjować pola kolumn i tutułu
+
         col_id.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d{0,7}([\\.]\\d{0,4})?")) {
                 col_id.setText(oldValue);
             }
-        });
 
+            try{
+                column_description = Integer.parseInt(col_id.getText());
+            }catch (Exception e){
+                column_description = 0;
+            }
+            dataObject.setCol_desc_id(column_description);
+        });
         col_id.disableProperty().bind(col_desc.selectedProperty().not());
 
+        col_desc.selectedProperty().addListener((observable, oldValue, newValue) -> dataObject.setCol_desc(col_desc.isSelected()));
 
-        /*
-            TODO Dodać bindy/listenery do pół łącząc je z polami w klasie DataObject
-         */
+        title.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            dataObject.setTitle(title.isSelected());
+            setRAW_DATA();
+        });
     }
 
-    @FXML
-    public void prepareData() {
-        Scanner in = null;
 
-        List<RowString> stringRows = new ArrayList<>();
+    private void setRAW_DATA(){
+        RAW_DATA.getColumns().clear();
+        ObservableList<String[]> observableList = FXCollections.observableArrayList();
+        observableList.addAll(dataObject.getStringTab());
 
-        try {
-            in = new Scanner(file);
-            while (in.hasNextLine()){
-                stringRows.add(new RowString(in.nextLine()));
-            }
+        if(dataObject.isTitle()) observableList.remove(0);
 
-        } catch (FileNotFoundException e) {
-        }catch (Exception e){
+        for(int i=0;i<dataObject.getStringTab()[0].length;i++){
+            TableColumn tableColumn;
 
+            if(dataObject.isTitle()) tableColumn = new TableColumn(dataObject.getStringTab()[0][i]);
+            else tableColumn = new TableColumn("x"+i);
+
+            final int colNo = i;
+
+            tableColumn.setCellValueFactory((Callback<TableColumn.CellDataFeatures<String[], String>, ObservableValue<String>>) param -> new SimpleStringProperty(param.getValue()[colNo]));
+
+            tableColumn.setPrefWidth(120);
+            RAW_DATA.getColumns().add(tableColumn);
         }
-        if(col_id.getText().length()<=0){
-            column_description=0;
-        }else{
-            column_description = Integer.parseInt(col_id.getText());
-        }
-
-
+        RAW_DATA.setItems(observableList);
     }
+
+
 }
