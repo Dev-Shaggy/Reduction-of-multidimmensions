@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.canvas.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane styleClass="container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shaggydev.controllers.MDSController">
+<StackPane alignment="TOP_RIGHT" styleClass="container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shaggydev.controllers.MDSController">
    <children>
       <ScatterChart fx:id="MDS_chart" legendSide="RIGHT" title="%mds.chart">
         <xAxis>
@@ -15,5 +16,6 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </ScatterChart>
+      <Button mnemonicParsing="false" onAction="#runAlgorithm" styleClass="button-content" text="%run.button" />
    </children>
 </StackPane>

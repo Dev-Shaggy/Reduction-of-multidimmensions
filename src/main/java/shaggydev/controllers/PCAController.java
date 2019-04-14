@@ -29,8 +29,6 @@ public class PCAController implements iController, Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-//        dataObject = DataObject.getInstance();
-//        System.out.println();
         try{
             dataObject = DataObject.getInstance();
             pca = PCA.getInstance();
