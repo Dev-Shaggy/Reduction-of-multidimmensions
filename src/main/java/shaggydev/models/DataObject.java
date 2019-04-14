@@ -61,12 +61,38 @@ public class DataObject {
         return table;
     }
 
+    public double[][] getDoubleTab(){
+        double [][]tab = new double[_rows.size()][_rows.get(0).get_row().size()];
+        for(int i=0;i<_rows.size();i++){
+            for(int j=0;j<_rows.get(i).get_row().size();j++){
+                tab[i][j]=_rows.get(i).get_row().get(j);
+            }
+        }
+        return tab;
+    }
 
+    public double [][] normalizeData(){
+        double [][] normalTable = new double[_rows.size()][_rows.get(0).get_row().size()];
+        double min, max;
+        for(int i=0;i<_rows.get(0).get_row().size();i++){
 
+            min=_rows.get(0).get_row().get(i);
+            max=_rows.get(0).get_row().get(i);
 
+            for(int j=1;j<_rows.size();j++){
+                if(min>_rows.get(j).get_row().get(i)){
+                    min = _rows.get(j).get_row().get(i);
+                }else if(max<_rows.get(j).get_row().get(i)){
+                    max = _rows.get(j).get_row().get(i);
+                }
+            }
 
-
-
+            for(int j=1;j<_rows.size();j++){
+                normalTable[j][i] = Math.round(((_rows.get(j).get_row().get(i) - min)/(max-min))*1000.0)/100.0;
+            }
+        }
+        return normalTable;
+    }
 
 
 
