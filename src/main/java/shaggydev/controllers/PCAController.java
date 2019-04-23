@@ -35,7 +35,7 @@ public class PCAController implements iController, Initializable {
             pca.setData(dataObject.normalizeData());
         }catch (Exception e){
 //TODO dodać logger
-            e.printStackTrace();
+//            e.printStackTrace();
         }
 
     }
@@ -117,7 +117,7 @@ public class PCAController implements iController, Initializable {
 
         PCA_chart.getData().clear();
         Thread thread = new Thread(pca);
-        thread.run();
+        thread.start();
         setSeriesNames();
         try {
             thread.join();

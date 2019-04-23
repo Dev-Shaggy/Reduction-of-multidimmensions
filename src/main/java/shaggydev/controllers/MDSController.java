@@ -103,7 +103,7 @@ public class MDSController implements iController, Initializable {
     public void runAlgorithm() {
         MDS_chart.getData().clear();
         Thread thread = new Thread(mds);
-        thread.run();
+        thread.start();
         setSeriesNames();
         try {
             thread.join();
@@ -124,7 +124,7 @@ public class MDSController implements iController, Initializable {
             mds.setData(dataObject.normalizeData());
         }catch (Exception e){
 //TODO dodać logger
-            e.printStackTrace();
+//            e.printStackTrace();
         }
 
     }

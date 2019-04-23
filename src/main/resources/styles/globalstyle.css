@@ -1,6 +1,7 @@
 BorderPane{
 -fx-background-color: #AAA;
 -fx-min-width: 1000px;
+-fx-min-height: 600px;
 }
 
 .menu-button {
