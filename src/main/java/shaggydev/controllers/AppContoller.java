@@ -1,14 +1,11 @@
 package shaggydev.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import shaggydev.interfaces.iController;
-import shaggydev.models.RowString;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,6 +17,7 @@ public class AppContoller implements Initializable {
     @FXML
     public BorderPane borderPane;
 
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private iController controller;
 
 

@@ -1,6 +1,6 @@
 package shaggydev.models;
 
-public class MDS implements Runnable{
+public class MDS implements Runnable {
     private static MDS ourInstance = new MDS();
 
     public static MDS getInstance() {
@@ -15,7 +15,7 @@ public class MDS implements Runnable{
     private double sumDist;
     private int integer;
 
-    public void setData(double[][] input){
+    public void setData(double[][] input) {
         _matrix = new double[input.length][input.length];
 
 
@@ -26,7 +26,7 @@ public class MDS implements Runnable{
         }
 
 
-        integer=0;
+        integer = 0;
         _coordinates = new double[input.length][2];
 
         for (int i = 0; i < _coordinates.length; i++) {

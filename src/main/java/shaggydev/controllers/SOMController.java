@@ -18,6 +18,8 @@ public class SOMController implements iController, Initializable {
     @FXML
     public Canvas SOM_canvas;
 
+
+    @SuppressWarnings({"unused", "FieldCanBeLocal"})
     private AppContoller appContoller;
 
     public void setUpController(AppContoller app) {
@@ -25,7 +27,6 @@ public class SOMController implements iController, Initializable {
     }
 
     private SOM som;
-    private List<String> dataSeriesNames;
     private DataObject dataObject;
 
     private List<DataSeriesNames> dsn;
@@ -36,13 +37,13 @@ public class SOMController implements iController, Initializable {
 
 
     private void setSeriesNames() {
-        dataSeriesNames = new ArrayList<>();
+        List<String> dataSeriesNames = new ArrayList<>();
         dsn = new ArrayList<>();
         int cursor = dataObject.isTitle() ? 1 : 0;
 
 
         if (dataObject.isCol_desc()) {
-            int x = 0;
+            int x;
             try {
                 x = dataObject.getCol_desc_id();
 

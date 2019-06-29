@@ -1,6 +1,5 @@
 package shaggydev.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.ScatterChart;
@@ -16,68 +15,75 @@ import java.util.ResourceBundle;
 
 public class PCAController implements iController, Initializable {
 
-    @FXML public ScatterChart PCA_chart;
+    @FXML
+    public ScatterChart PCA_chart;
+
+    @SuppressWarnings({"unused", "FieldCanBeLocal"})
     private AppContoller appContoller;
+
     private DataObject dataObject;
     private PCA pca;
     private List<String> dataSeriesNames;
 
-    public void setUpController(AppContoller app){
+    public void setUpController(AppContoller app) {
         this.appContoller = app;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        try{
+        try {
             dataObject = DataObject.getInstance();
             pca = PCA.getInstance();
             pca.setData(dataObject.normalizeData());
-        }catch (Exception e){
+        } catch (Exception e) {
 //TODO dodać logger
 //            e.printStackTrace();
         }
 
     }
 
-    private void setSeriesNames(){
+    private void setSeriesNames() {
         dataSeriesNames = new ArrayList<>();
-        int cursor = dataObject.isTitle() ? 1:0;
+        int cursor = dataObject.isTitle() ? 1 : 0;
 
 
-        if(dataObject.isCol_desc()){
-            int x=0;
-            try{
-                x= dataObject.getCol_desc_id();
+        if (dataObject.isCol_desc()) {
+            int x;
+            try {
+                x = dataObject.getCol_desc_id();
 
-                for( int i= cursor;i<dataObject.get_list().size();i++){
+                for (int i = cursor; i < dataObject.get_list().size(); i++) {
                     String name = dataObject.get_list().get(i).getStringByID(x);
-                    if(!dataSeriesNames.contains(name)){
+                    if (!dataSeriesNames.contains(name)) {
                         dataSeriesNames.add(name);
                     }
                 }
 
-            }catch (Exception e){
+            } catch (Exception e) {
+//TODO dodać logger
 
             }
         }
     }
 
-    private void drawChart(double[][] table){
-        if(table[0].length==2){
-            if(dataObject.isCol_desc()){
-                List<XYChart.Series<Number,Number>> series = new ArrayList<>();
+    private void drawChart(double[][] table) {
+        if (table[0].length == 2) {
+            if (dataObject.isCol_desc()) {
+                List<XYChart.Series<Number, Number>> series = new ArrayList<>();
 
-                for(String name : dataSeriesNames){
+                for (String name : dataSeriesNames) {
                     XYChart.Series<Number, Number> dataSet = new XYChart.Series<>();
                     dataSet.setName(name);
                     series.add(dataSet);
                 }
 
-                int x =0;
+                int x = 0;
                 try {
                     x = dataObject.getCol_desc_id();
                 } catch (Exception e) {
+                    //TODO dodać logger
+
                 }
 
                 int cursor = 0;
@@ -86,30 +92,30 @@ public class PCAController implements iController, Initializable {
 
                 for (int i = 0; i < table.length; i++) {
 
-                    for (int j = 0; j < series.size(); j++) {
-                        if (series.get(j).getName().equals(dataObject.get_list().get(i + cursor).getStringByID(x))) {
-                            series.get(j).getData().add(new XYChart.Data<>(table[i][0], table[i][1]));
+                    for (XYChart.Series<Number, Number> numberNumberSeries : series) {
+                        if (numberNumberSeries.getName().equals(dataObject.get_list().get(i + cursor).getStringByID(x))) {
+                            numberNumberSeries.getData().add(new XYChart.Data<>(table[i][0], table[i][1]));
                         }
                     }
                 }
+                //noinspection unchecked
                 PCA_chart.getData().addAll(series);
-
 
 
             } else {
                 XYChart.Series<Number, Number> values = new XYChart.Series<>();
-                for (int i = 0; i < table.length; i++) {
+                for (double[] doubles : table) {
 
                     values.setName("PCA");
-                    values.getData().add(new XYChart.Data<>(table[i][0], table[i][1]));
+                    values.getData().add(new XYChart.Data<>(doubles[0], doubles[1]));
 
                 }
+                //noinspection unchecked
                 PCA_chart.getData().addAll(values);
 
             }
         }
     }
-
 
 
     @FXML

@@ -13,21 +13,11 @@ public class Neuron {
         resetWeights();
     }
 
-
     public void resetWeights() {
         Random r = new Random();
         for (int i = 0; i < weights.length; i++) {
             weights[i] = r.nextDouble();
         }
-    }
-
-    public double getValue(double[] inputVector) {
-        double sum = 0.0;
-
-        for (int i = 0; i < weights.length; i++) {
-            sum += weights[i] * inputVector[i];
-        }
-        return sum;
     }
 
     public void increaseWeights(double[] input, double dist, double alpha) {
@@ -43,11 +33,9 @@ public class Neuron {
 
 
         for (int i = 0; i < weights.length; i++) {
-//            double val =alpha*(0.5/Math.min(dist,0.1))*(weights[i]-input[i]);
             double val = fdist * alpha * (input[i] - weights[i]);
             weights[i] += val;
         }
-
     }
 
 
@@ -59,5 +47,4 @@ public class Neuron {
         }
         return Math.sqrt(d);
     }
-
 }

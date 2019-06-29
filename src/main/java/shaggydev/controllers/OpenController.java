@@ -1,11 +1,9 @@
 package shaggydev.controllers;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -30,10 +28,10 @@ public class OpenController implements iController, Initializable {
 
 
     //Handler do głównego okna
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private AppContoller appContoller;
 
 
-    private File file;
     private int column_description;
 
     private DataObject dataObject;
@@ -47,7 +45,7 @@ public class OpenController implements iController, Initializable {
 
         try{
             FileChooser fch = new FileChooser();
-            file = fch.showOpenDialog(openFileButton.getParent().getScene().getWindow());
+            File file = fch.showOpenDialog(openFileButton.getParent().getScene().getWindow());
 
             path.setText(file.getName());
             dataObject.SetData(file);
@@ -72,6 +70,7 @@ public class OpenController implements iController, Initializable {
 //TODO poprawić bindowanie lub inicjować pola kolumn i tutułu
 
         col_id.textProperty().addListener((observable, oldValue, newValue) -> {
+            //noinspection RegExpRedundantEscape
             if (!newValue.matches("\\d{0,7}([\\.]\\d{0,4})?")) {
                 col_id.setText(oldValue);
             }
@@ -109,11 +108,14 @@ public class OpenController implements iController, Initializable {
 
             final int colNo = i;
 
+            //noinspection unchecked
             tableColumn.setCellValueFactory((Callback<TableColumn.CellDataFeatures<String[], String>, ObservableValue<String>>) param -> new SimpleStringProperty(param.getValue()[colNo]));
 
             tableColumn.setPrefWidth(120);
+            //noinspection unchecked
             RAW_DATA.getColumns().add(tableColumn);
         }
+        //noinspection unchecked
         RAW_DATA.setItems(observableList);
     }
 

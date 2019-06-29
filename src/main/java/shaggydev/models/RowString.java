@@ -1,45 +1,40 @@
 package shaggydev.models;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RowString {
 
     private List<String> _list;
 
-    public RowString(String row){
+    RowString(String row) {
         String[] splitRow = row.split(" ");
         _list = new ArrayList<>();
 
-        for(String s : splitRow){
-            _list.add(s);
-        }
+        _list.addAll(Arrays.asList(splitRow));
     }
 
-    public List<String> getStringRow(){
-        return _list;
-    }
-
-    public List<Double> getRow(){
+    List<Double> getRow() {
 
         List<Double> dlist = new ArrayList<>();
-        for(int i=0;i<_list.size();i++) {
+        for (String s : _list) {
             try {
-                dlist.add(Double.parseDouble(_list.get(i)));
-            }catch (Exception e) {
+                dlist.add(Double.parseDouble(s));
+            } catch (Exception e) {
                 dlist.add(0.0);
             }
         }
         return dlist;
     }
 
-    public List<Double> getRow(int col_title){
+    List<Double> getRow(int col_title) {
         List<Double> dlist = new ArrayList<>();
-        for(int i=0;i<_list.size();i++) {
-            if(i!=col_title) {
+        for (int i = 0; i < _list.size(); i++) {
+            if (i != col_title) {
                 try {
                     dlist.add(Double.parseDouble(_list.get(i)));
-                }catch (Exception e) {
+                } catch (Exception e) {
                     dlist.add(0.0);
                 }
             }
