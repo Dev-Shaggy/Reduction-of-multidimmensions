@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.canvas.*?>
@@ -10,10 +11,10 @@
    <children>
       <ScatterChart fx:id="MDS_chart" legendSide="RIGHT" title="%mds.chart">
         <xAxis>
-          <NumberAxis side="BOTTOM" />
+          <NumberAxis lowerBound="-10.0" side="BOTTOM" upperBound="10.0" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis lowerBound="-10.0" side="LEFT" upperBound="10.0" />
         </yAxis>
       </ScatterChart>
       <Button mnemonicParsing="false" onAction="#runAlgorithm" styleClass="button-content" text="%run.button" />

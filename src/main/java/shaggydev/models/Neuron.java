@@ -1,40 +1,63 @@
 package shaggydev.models;
 
 import java.util.List;
+import java.util.Random;
 
 public class Neuron {
 
-    private double [] weights;
+    private double[] weights;
 
-    public Neuron(int inputSize){
+    public Neuron(int inputSize) {
         weights = new double[inputSize];
 
-        for(int i=0;i<weights.length;i++){
-            weights[i]= Math.random();
-        }
-    }
-    public double getValue(List<Double> inputVector){
-        double sum=0.0;
-
-        for(int i=0; i<weights.length;i++){
-            sum+=weights[i]*inputVector.get(i);
-        }
-        return sum;
+        resetWeights();
     }
 
-    public double getValue(double [] inputVector){
-        double sum=0.0;
 
-        for(int i=0; i<weights.length;i++){
-            sum+=weights[i]*inputVector[i];
+    public void resetWeights() {
+        Random r = new Random();
+        for (int i = 0; i < weights.length; i++) {
+            weights[i] = r.nextDouble();
+        }
+    }
+
+    public double getValue(double[] inputVector) {
+        double sum = 0.0;
+
+        for (int i = 0; i < weights.length; i++) {
+            sum += weights[i] * inputVector[i];
         }
         return sum;
     }
 
+    public void increaseWeights(double[] input, double dist, double alpha) {
 
-    public void increaseWeights(double alpha){
-        for(int i=0;i<weights.length;i++){
-            weights[i]+=alpha*0.001*weights[i];
+        double fdist;
+
+        //Liniowa
+        if (dist == 0) fdist = 1.0;
+        else fdist = 1.0 / dist;
+
+        //Prostokątna
+//        fdist=1;
+
+
+        for (int i = 0; i < weights.length; i++) {
+//            double val =alpha*(0.5/Math.min(dist,0.1))*(weights[i]-input[i]);
+            double val = fdist * alpha * (input[i] - weights[i]);
+            weights[i] += val;
         }
+
     }
+
+
+    public double getDistance(double[] vector) {
+        double d = 0.0;
+
+        for (int i = 0; i < vector.length; i++) {
+            d += Math.pow(vector[i] - weights[i], 2);
+        }
+        return Math.sqrt(d);
+    }
+
 }

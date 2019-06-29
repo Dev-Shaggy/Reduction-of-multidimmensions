@@ -1,10 +1,12 @@
 package shaggydev.controllers;
 
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ProgressBar;
 import shaggydev.interfaces.iController;
 import shaggydev.models.DataObject;
 import shaggydev.models.MDS;
@@ -18,6 +20,7 @@ import java.util.ResourceBundle;
 public class MDSController implements iController, Initializable {
 
     @FXML public ScatterChart MDS_chart;
+    @FXML public ProgressBar progress;
 
     private AppContoller appContoller;
     public void setUpController(AppContoller app){

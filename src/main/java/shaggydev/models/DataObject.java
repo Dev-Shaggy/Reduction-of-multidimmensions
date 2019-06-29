@@ -41,7 +41,7 @@ public class DataObject {
 
         if(col_desc){
             for (int i=cursor;i<_list.size();i++){
-                _rows.add(new RowDouble(_list.get(i).getRow(col_desc_id)));
+                _rows.add(new RowDouble(_list.get(i).getRow(col_desc_id),_list.get(i).getStringByID(col_desc_id)));
             }
         }else {
             for (int i=cursor;i<_list.size();i++){
@@ -70,6 +70,13 @@ public class DataObject {
         }
         return tab;
     }
+    public double[] getDoubleRow(int id){
+        double []tab = new double[_rows.get(id).get_row().size()];
+        for(int i=0;i<tab.length;i++){
+            tab[i]=_rows.get(id).get_row().get(i);
+        }
+        return  tab;
+    }
 
     public double [][] normalizeData(){
         double [][] normalTable = new double[_rows.size()][_rows.get(0).get_row().size()];
@@ -88,11 +95,14 @@ public class DataObject {
             }
 
             for(int j=1;j<_rows.size();j++){
-                normalTable[j][i] = Math.round(((_rows.get(j).get_row().get(i) - min)/(max-min))*1000.0)/100.0;
+//                normalTable[j][i] = Math.round(((_rows.get(j).get_row().get(i) - min)/(max-min))*1000.0)/100.0;
+                normalTable[j][i] = (_rows.get(j).get_row().get(i) - min)/(max-min);
             }
         }
         return normalTable;
     }
+
+
 
 
 
