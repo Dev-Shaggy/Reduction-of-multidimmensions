@@ -10,6 +10,7 @@ BorderPane{
     -fx-pref-width: 250px;
     -fx-background-color: #CCFF99;
     -fx-wrap-text: true;
+
 }
 
 .container{
@@ -27,4 +28,13 @@ BorderPane{
 
 Button{
     -fx-min-width: 100px;
+    -fx-cursor: hand;
+
+}
+.button-content{
+    -fx-height: 20px;
+    -fx-padding: 10px;
+}
+.som-vbox{
+    -fx-padding: 10px;
 }

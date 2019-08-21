@@ -10,6 +10,7 @@ public class MDS implements Runnable {
     private MDS() {
     }
 
+    private double [][] _input; //123123123
     private double[][] _matrix;
     private double[][] _coordinates;
     private double sumDist;
@@ -17,6 +18,7 @@ public class MDS implements Runnable {
 
     public void setData(double[][] input) {
         _matrix = new double[input.length][input.length];
+        _input = input;
 
 
         for (int i = 0; i < input.length; i++) {
@@ -44,17 +46,27 @@ public class MDS implements Runnable {
             }
         }
     }
-
     private double euclideanDistance(int x, int y) {
 
         double distance = 0.0;
 
-        for (int i = 0; i < _matrix[x].length; i++) {
-            distance += Math.pow((_matrix[x][i] - _matrix[y][i]), 2);
+        for (int i = 0; i < _input[x].length; i++) {
+            distance += Math.pow((_input[x][i] - _input[y][i]), 2);
         }
         distance = Math.sqrt(distance);
         return distance;
     }
+
+//    private double euclideanDistance(int x, int y) {
+//
+//        double distance = 0.0;
+//
+//        for (int i = 0; i < _matrix[x].length; i++) {
+//            distance += Math.pow((_matrix[x][i] - _matrix[y][i]), 2);
+//        }
+//        distance = Math.sqrt(distance);
+//        return distance;
+//    }
 
     private double eu2dim(double[] x1, double[] x2) {
         return Math.sqrt(Math.pow((x1[0] - x2[0]), 2) + Math.pow((x1[1] - x2[1]), 2));

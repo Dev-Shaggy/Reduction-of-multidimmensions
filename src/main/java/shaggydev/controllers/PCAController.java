@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class PCAController implements iController, Initializable {
 
@@ -37,8 +38,8 @@ public class PCAController implements iController, Initializable {
             pca = PCA.getInstance();
             pca.setData(dataObject.normalizeData());
         } catch (Exception e) {
-//TODO dodać logger
-//            e.printStackTrace();
+            Logger.getLogger(getClass().getName()).warning("Błąd inicjalizacji obiektu PCA");
+
         }
 
     }
@@ -61,7 +62,7 @@ public class PCAController implements iController, Initializable {
                 }
 
             } catch (Exception e) {
-//TODO dodać logger
+                Logger.getLogger(getClass().getName()).warning("Błąd nazw grup.");
 
             }
         }
@@ -82,8 +83,7 @@ public class PCAController implements iController, Initializable {
                 try {
                     x = dataObject.getCol_desc_id();
                 } catch (Exception e) {
-                    //TODO dodać logger
-
+                    Logger.getLogger(getClass().getName()).warning("Błąd pobierania danych do wykresu.");
                 }
 
                 int cursor = 0;
@@ -129,7 +129,7 @@ public class PCAController implements iController, Initializable {
             thread.join();
         } catch (InterruptedException e) {
 //            e.printStackTrace();
-//TODO dodać logger
+            Logger.getLogger(getClass().getName()).warning("Błąd wykonywania algorytmu PCA");
         }
         drawChart(pca.getCoordinates());
     }

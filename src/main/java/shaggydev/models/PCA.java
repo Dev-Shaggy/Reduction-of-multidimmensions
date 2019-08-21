@@ -120,8 +120,6 @@ public class PCA implements Runnable {
             }
             percentageValue[maxid] = 0.0;
         }
-
-
         return this.getVectors().getMatrix(0, eigValTab.length - 1, tableColumnID);
     }
 

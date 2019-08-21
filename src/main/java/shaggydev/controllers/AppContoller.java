@@ -34,12 +34,8 @@ public class AppContoller implements Initializable {
     public void open() {
         loadUI("OpenLayout");
     }
-
     @FXML
-    public void pca() {
-
-        loadUI("PCALayout");
-    }
+    public void pca() { loadUI("PCALayout"); }
     @FXML
     public void mds() {
         loadUI("MDSLayout");
@@ -52,6 +48,8 @@ public class AppContoller implements Initializable {
     public void clear() {
         borderPane.setCenter(null);
     }
+
+
     private void loadUI(String ui){
         Parent root = null;
 
@@ -59,11 +57,11 @@ public class AppContoller implements Initializable {
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/fxml/"+ui+".fxml"));
             loader.setResources(bundle);
             root = loader.load();
+            root.getStylesheets().add("/styles/globalstyle.css");
             controller = loader.getController();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         borderPane.setCenter(root);
     }
 }

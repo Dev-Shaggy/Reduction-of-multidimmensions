@@ -4,19 +4,32 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import shaggydev.interfaces.iController;
-import shaggydev.models.*;
+import shaggydev.models.DataObject;
+import shaggydev.models.DataSeriesNames;
+import shaggydev.models.Point;
+import shaggydev.models.SOM;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class SOMController implements iController, Initializable {
 
     @FXML
     public Canvas SOM_canvas;
+
+    @FXML
+    public ListView lv_legend;
 
 
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
@@ -34,6 +47,22 @@ public class SOMController implements iController, Initializable {
     private final int CELL_COUNT = 20;
 
     private int CELL_SIZE;
+
+    @SuppressWarnings("unchecked")
+    private void setupLegend(){
+
+        for (DataSeriesNames data: dsn) {
+            HBox row = new HBox();
+            Label desc = new Label(data.name);
+            Pane pane = new Pane();
+            HBox.setHgrow(pane, Priority.ALWAYS);
+            Rectangle rect = new Rectangle(20,20);
+            rect.setFill(data.color);
+            row.getChildren().addAll(desc,pane,rect);
+
+            lv_legend.getItems().add(row);
+        }
+    }
 
 
     private void setSeriesNames() {
@@ -57,7 +86,7 @@ public class SOMController implements iController, Initializable {
                 }
 
             } catch (Exception e) {
-                //TODO dodać logger
+                Logger.getLogger(getClass().getName()).warning("Błąd nazw grup.");
             }
         }
     }
@@ -77,13 +106,14 @@ public class SOMController implements iController, Initializable {
 
 
         } catch (Exception e) {
-//TODO dodać logger
-//            e.printStackTrace();
+            Logger.getLogger(getClass().getName()).warning("Błąd inicjalizacji obiektu SOM.");
+
         }
 
     }
 
     private void clearCanvas() {
+        lv_legend.getItems().clear();
         GraphicsContext gc = SOM_canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, 400, 400);
 
@@ -110,13 +140,13 @@ public class SOMController implements iController, Initializable {
         double[][] inputs = dataObject.normalizeData();
         clearCanvas();
 
+        setupLegend();
         int epochs = 50;
         som.reset();
 
         for (int x = 0; x < epochs; x++) {
             som.step();
         }
-
 
         double min;
         String name = "";

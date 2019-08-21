@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.canvas.*?>
-<?import java.lang.*?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.ScatterChart?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
-
-<StackPane alignment="BASELINE_RIGHT" styleClass="container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shaggydev.controllers.PCAController">
-   <children>
-      <ScatterChart fx:id="PCA_chart" legendSide="RIGHT" title="%pca.chart">
-        <xAxis>
-          <NumberAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </ScatterChart>
-      <Button mnemonicParsing="false" onAction="#runAlgorithm" styleClass="button-content" text="%run.button" />
-   </children>
+<StackPane alignment="BASELINE_RIGHT" styleClass="container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="shaggydev.controllers.PCAController">
+    <ScatterChart fx:id="PCA_chart" legendSide="RIGHT" title="%pca.chart">
+      <xAxis>
+          <NumberAxis side="BOTTOM"/>
+      </xAxis>
+      <yAxis>
+          <NumberAxis side="LEFT"/>
+      </yAxis>
+    </ScatterChart>
+    <Button mnemonicParsing="false" onAction="#runAlgorithm" styleClass="button-content" text="%run.button"/>
 </StackPane>

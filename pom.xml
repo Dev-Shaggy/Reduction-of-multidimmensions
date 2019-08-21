@@ -9,8 +9,7 @@
   <version>1.0</version>
 
   <name>MGRv2</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <url>https://github.com/Dev-Shaggy/Reduction-of-multidimmensions</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -37,7 +36,6 @@
       <artifactId>javafx-fxml</artifactId>
       <version>13-ea+4</version>
     </dependency>
-
 
   </dependencies>
 

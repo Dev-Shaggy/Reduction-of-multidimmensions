@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class MDSController implements iController, Initializable {
 
@@ -47,7 +48,7 @@ public class MDSController implements iController, Initializable {
                 }
 
             } catch (Exception e) {
-//TODO dodać logger
+                Logger.getLogger(getClass().getName()).warning("Błąd nazw grup.");
             }
         }
     }
@@ -111,8 +112,8 @@ public class MDSController implements iController, Initializable {
         try {
             thread.join();
         } catch (InterruptedException e) {
-//            e.printStackTrace();
-//TODO dodać logger
+            Logger.getLogger(getClass().getName()).warning("Błąd uruchamiania algorytmu MDS");
+
         }
         drawChart(mds.getCoordinates());
     }
@@ -126,8 +127,9 @@ public class MDSController implements iController, Initializable {
             mds = MDS.getInstance();
             mds.setData(dataObject.normalizeData());
         } catch (Exception e) {
-//TODO dodać logger
-//            e.printStackTrace();
+            e.printStackTrace();
+            Logger.getLogger(getClass().getName()).warning("Błąd inicjalizacji obiektu MDS");
+
         }
 
     }

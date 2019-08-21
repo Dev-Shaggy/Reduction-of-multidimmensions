@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class DataObject {
     private static DataObject ourInstance = new DataObject();
@@ -12,13 +13,15 @@ public class DataObject {
         return ourInstance;
     }
 
-    private DataObject() {}
+    private DataObject() {
+    }
 
     private List<RowString> _list;
     private List<RowDouble> _rows;
     private boolean title;
     private boolean col_desc;
     private int col_desc_id;
+
 
     public void SetData(File file) {
         Scanner in;
@@ -31,6 +34,7 @@ public class DataObject {
                 _list.add(new RowString(in.nextLine()));
             }
         } catch (Exception e) {
+            Logger.getLogger(getClass().getName()).warning("Błąd inicjalizacji danych.");
 
         }
     }
@@ -39,16 +43,20 @@ public class DataObject {
         _rows = new ArrayList<>();
 
         int cursor = title ? 1 : 0;
-
-        if (col_desc) {
-            for (int i = cursor; i < _list.size(); i++) {
-                _rows.add(new RowDouble(_list.get(i).getRow(col_desc_id), _list.get(i).getStringByID(col_desc_id)));
+        try {
+            if (col_desc) {
+                for (int i = cursor; i < _list.size(); i++) {
+                    _rows.add(new RowDouble(_list.get(i).getRow(col_desc_id), _list.get(i).getStringByID(col_desc_id)));
+                }
+            } else {
+                for (int i = cursor; i < _list.size(); i++) {
+                    _rows.add(new RowDouble(_list.get(i).getRow()));
+                }
             }
-        } else {
-            for (int i = cursor; i < _list.size(); i++) {
-                _rows.add(new RowDouble(_list.get(i).getRow()));
-            }
+        } catch (Exception e) {
+            Logger.getLogger(getClass().getName()).warning("Błąd parsowania danych.");
         }
+
     }
 
     public String[][] getStringTab() {

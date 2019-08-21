@@ -1,36 +1,29 @@
 package shaggydev.models;
 
-import java.util.List;
 import java.util.Random;
 
-public class Neuron {
+class Neuron {
 
     private double[] weights;
 
-    public Neuron(int inputSize) {
+    Neuron(int inputSize) {
         weights = new double[inputSize];
 
         resetWeights();
     }
 
-    public void resetWeights() {
+    void resetWeights() {
         Random r = new Random();
         for (int i = 0; i < weights.length; i++) {
             weights[i] = r.nextDouble();
         }
     }
 
-    public void increaseWeights(double[] input, double dist, double alpha) {
+    void increaseWeights(double[] input, double dist, double alpha) {
 
-        double fdist;
+        double fdist = dist == 0 ? 1.0 : 1.0 / dist;
 
-        //Liniowa
-        if (dist == 0) fdist = 1.0;
-        else fdist = 1.0 / dist;
-
-        //Prostokątna
-//        fdist=1;
-
+        //TODO Znaleźć lepszą funkcję sąsiedztwa
 
         for (int i = 0; i < weights.length; i++) {
             double val = fdist * alpha * (input[i] - weights[i]);
@@ -39,7 +32,7 @@ public class Neuron {
     }
 
 
-    public double getDistance(double[] vector) {
+    double getDistance(double[] vector) {
         double d = 0.0;
 
         for (int i = 0; i < vector.length; i++) {

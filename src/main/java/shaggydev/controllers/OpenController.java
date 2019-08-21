@@ -15,6 +15,7 @@ import shaggydev.models.DataObject;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 
 public class OpenController implements iController, Initializable {
@@ -46,14 +47,16 @@ public class OpenController implements iController, Initializable {
         try{
             FileChooser fch = new FileChooser();
             File file = fch.showOpenDialog(openFileButton.getParent().getScene().getWindow());
+            if (file != null) {
+                path.setText(file.getName());
+                dataObject.SetData(file);
+                setRAW_DATA();
+            }
 
-            path.setText(file.getName());
-            dataObject.SetData(file);
-
-            setRAW_DATA();
 
         }catch (Exception e){
-            //TODO dodać logger
+            Logger.getLogger(getClass().getName()).warning("Nie wybrano pliku");
+
         }
     }
 
@@ -65,9 +68,8 @@ public class OpenController implements iController, Initializable {
         try{
             setRAW_DATA();
         }catch (Exception e){
-//TODO doać logger
+            //nieistotne
         }
-//TODO poprawić bindowanie lub inicjować pola kolumn i tutułu
 
         col_id.textProperty().addListener((observable, oldValue, newValue) -> {
             //noinspection RegExpRedundantEscape
@@ -122,6 +124,6 @@ public class OpenController implements iController, Initializable {
 
     @FXML
     public void prepareData() {
-        dataObject.parseDouble();
+            dataObject.parseDouble();
     }
 }

@@ -35,7 +35,6 @@ public class App extends Application
         primaryStage.setScene(scene);
 
         primaryStage.setTitle(bundle.getString("title.application"));
-
         primaryStage.show();
     }
 }
